@@ -46,7 +46,7 @@ type BackdropComponentProps = {
 
 const BackdropComponent = ({blur}: BackdropComponentProps) => {
   const {state, theme} = useInternal();
-  const BackdropBlur = blur ? AnimatedBlurView : Animated.View;
+  const BackdropBlur = AnimatedBlurView;
 
   const tapGestureEvent = useAnimatedGestureHandler<
     TapGestureHandlerGestureEvent,
@@ -100,7 +100,7 @@ const BackdropComponent = ({blur}: BackdropComponentProps) => {
   const animatedContainerProps = useAnimatedProps(() => {
     return {
       blurAmount: withTiming(
-        state.value === CONTEXT_MENU_STATE.ACTIVE && blur ? 100 : 0,
+        state.value === CONTEXT_MENU_STATE.ACTIVE && blur ? 6 : 0,
         {
           duration: HOLD_ITEM_TRANSFORM_DURATION,
         }
@@ -124,6 +124,7 @@ const BackdropComponent = ({blur}: BackdropComponentProps) => {
   return (
     <TapGestureHandler onHandlerStateChange={tapGestureEvent}>
       <BackdropBlur
+        blurType="light"
         animatedProps={animatedContainerProps}
         style={[styles.container, animatedContainerStyle]}>
         <Animated.View
